@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS clientes (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     telefono VARCHAR(15),
-    puntos INT DEFAULT 0,
+    puntos decimal(18,2),
     fecha_registro DATE,
     fecha_modificacion DATETIME
 );
-
+use prueba1;
 -- Insertar registros en la tabla 'clientes'
 INSERT INTO clientes (nombre, email, telefono, puntos, fecha_registro)
 VALUES 
@@ -26,9 +26,11 @@ VALUES
     ('Carlos Sanchez', 'carlos@mail.com', '999888777', 90, '2023-04-10'),
     ('Carlos Ruiz', 'carlos.ruiz@mail.com', '222333444', 110, '2023-02-28'),
     ('Sofia Ortiz', 'sofia@mail.com', '123456789', 30, '2023-08-15');
+    
+    select * from clientes;
 
 -- Verificar la creación y los datos
-SELECT * FROM clientes;
+
 
 -- Insert: ¿Cómo se inserta un nuevo cliente en una tabla llamada clientes con los campos nombre, email y telefono?
 INSERT into clientes (nombre, email, telefono) VALUES
@@ -92,7 +94,7 @@ VALUES
 
 -- Update: ¿Cómo se reinicia a cero el campo puntos para todos los clientes cuyo nombre empiece con 'A'?
 
-update clientes set puntos= '0' where nombre like 'a%';
+update clientes set puntos= '0' where nombre like 'A%';
 
 -- Insert: ¿Cómo se inserta un cliente utilizando un subquery para calcular su puntos inicial basado en el promedio de todos los puntos?
 
@@ -113,9 +115,11 @@ update clientes set puntos = '150' and fecha_registro = '2024-11-06' where punto
 
 -- Update: ¿Cómo se actualizan los puntos de todos los clientes a la mitad de su valor actual?
 
-update clientes set puntos = (puntos*0.5);
+update clientes set puntos = (puntos/2);
 
 -- Delete: ¿Cómo se eliminan todos los clientes cuyo telefono comienza con el prefijo '123-'?
 
 delete from clientes where telefono like '123%';
+
+SELECT * FROM clientes;
 
