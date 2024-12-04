@@ -1,4 +1,4 @@
-DROP database tema5;
+DROP database if exists tema5;
 
 Create database IF NOT EXISTS tema5;
 
@@ -14,12 +14,13 @@ Nombre VARCHAR(50)
 
 CREATE TABLE IF NOT EXISTS Tabla2(
 idtabla1 int primary key,
-fk_tabla2 char(9)
+fk_tabla1 char(9)
 ) engine = InnoDB;
 
 show table status like 'tabla1'; #PONER EL NOMBRE DE LA TABLA CON COMILLAS
 show table status like 'tabla2'; #PONER EL NOMBRE DE LA TABLA CON COMILLAS
 
-ALTER TABLE tabla2 add constraint FK_tabla1_tabla2 foreign key(fk_tabla2) references tabla1(DNI);
+ALTER TABLE tabla2 add constraint FK_tabla1_tabla2 foreign key(fk_tabla1) references tabla1(DNI);
 desc tabla2;
 
+CREATE UNIQUE INDEX Fk_tabla1 on tabla2(fk_tabla1);
