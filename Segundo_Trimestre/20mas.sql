@@ -100,34 +100,31 @@ SELECT nombre_producto FROM Productos WHERE nombre_producto NOT REGEXP '[aeiouAE
 
 
 -- Calcular el precio total (precio * cantidad) para cada producto vendido y ordenarlo de mayor a menor.
-
-
--- Determinar cuántos pedidos tienen una cantidad mayor a 5.
-
+SELECT p.nombre_producto, SUM(p.precio * 1) AS precio_total FROM  Pedidos ped JOIN  Productos p ON ped.id_producto = p.id_producto GROUP BY  p.id_producto ORDER BY precio_total DESC;
 
 -- Mostrar los nombres de los clientes con las letras "e" y "a" reemplazadas por "*".
-
+SELECT REPLACE(REPLACE(nombre_cliente, 'e', '*'), 'a', '*') AS cliente_modificado FROM Clientes;
 
 -- Listar las categorías de productos que no tienen ningún producto asociado.
-
+SELECT nombre_categoria FROM Categorias c LEFT JOIN Productos p ON c.id_categoria = p.id_categoria WHERE p.id_categoria IS NULL;
 
 -- Mostrar el número total de días entre la fecha más antigua y la más reciente en la tabla de pedidos.
-
+SELECT DATEDIFF(MAX(fecha_pedido), MIN(fecha_pedido)) AS dias_totales FROM Pedidos;
 
 -- Obtener los productos que tienen precios redondeados al entero más cercano iguales a 20.
-
+SELECT nombre_producto FROM Productos WHERE ROUND(precio) = 20;
 
 -- Listar los pedidos realizados en un día lunes.
-
+SELECT * FROM Pedidos WHERE DAYOFWEEK(fecha_pedido) = 2;
 
 -- Mostrar las iniciales de cada cliente (primeras letras de su nombre y apellido).
-
+SELECT CONCAT(LEFT(SUBSTRING_INDEX(nombre_cliente, ' ', 1), 1), LEFT(SUBSTRING_INDEX(nombre_cliente, ' ', -1), 1)) AS iniciales FROM Clientes;
 
 -- Extraer las dos últimas letras del nombre de cada categoría y mostrar cuántas son "as".
-
+SELECT nombre_categoria, RIGHT(nombre_categoria, 2) AS ultimas_letras FROM Categorias WHERE RIGHT(nombre_categoria, 2) = 'as';
 
 -- Calcular el precio promedio por pedido (precio * cantidad / total de pedidos).
-
+SELECT AVG(p.precio * 1) AS precio_promedio_por_pedido FROM Pedidos ped JOIN Productos p ON ped.id_producto = p.id_producto;
 
 -- Mostrar los nombres de los productos en formato "Producto: nombre_producto, Precio: precio".
-
+SELECT CONCAT('Producto: ', nombre_producto, ', Precio: ', precio) AS descripcion_producto FROM Productos;
