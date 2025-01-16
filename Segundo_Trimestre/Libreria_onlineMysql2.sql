@@ -99,62 +99,6 @@ INSERT INTO libro_autor (id_libro, id_autor) VALUES
 (4, 4);
 
 -- Consultas requeridas
--- 1. Listado de Libros con Autores y Categorías
-SELECT libros.titulo AS libro, autores.nombre AS autor, categorias.nombre AS categoria
-FROM libros
-JOIN libro_autor ON libros.id_libro = libro_autor.id_libro
-JOIN autores ON libro_autor.id_autor = autores.id_autor
-JOIN categorias ON libros.id_categoria = categorias.id_categoria;
-
--- 2. Clientes con Pedidos Realizados
-SELECT clientes.nombre AS cliente, SUM(pedidos.total) AS total_pedidos FROM clientes JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente GROUP BY clientes.nombre;
-
--- 3. Stock Crítico
-SELECT titulo AS libro, stock FROM libros WHERE stock <= 5;
-
--- 4. Total de Pedidos por Cliente
-SELECT clientes.nombre AS cliente, COUNT(pedidos.id_pedido) AS numero_pedidos FROM clientes JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente GROUP BY clientes.nombre;
-
-Select * from clientes;
-
-begin;
-
-insert into pedidos( id_cliente,fecha,total) values
-(1, '2024-12-15', 0);
-
-select * from pedidos;
-select * from libros;
-
-insert into detalles_pedidos (id_pedido,id_libro,cantidad,subtotal) values
-(1, 1, 1, 19.99);
-
-insert into detalles_pedidos (id_pedido,id_libro,cantidad,subtotal) values
-(1, 2, 2, 15.50 * 2);
-
-update libros  set stock = stock -1 where id_libro = 1;
-update libros  set stock = stock -2 where id_libro = 2;
-
-select * from libros;
-
-commit;
-
-begin;
-
-insert into pedidos( id_cliente,fecha,total) values
-(1, '2024-12-15', 0);
-
-insert into detalles_pedidos (id_pedido,id_libro,cantidad,subtotal) values
-(2, 4, 6, 6 * 16.50);
-
-rollback;
-
-select * from detalles_pedidos;
-
-
-
-
-
-
 
 
 
@@ -169,8 +113,7 @@ SELECT * from insertpedidos;
 commit; 
  
 
-
-
+  
 
 /*
 DELIMITER $$
@@ -256,19 +199,3 @@ SELECT p.id_pedido, c.nombre AS cliente, l.titulo AS libro, dp.cantidad, dp.subt
 JOIN clientes c ON p.id_cliente = c.id_cliente
 JOIN detalles_pedidos dp ON p.id_pedido = dp.id_pedido
 JOIN libros l ON dp.id_libro = l.id_libro;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
